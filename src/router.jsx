@@ -5,10 +5,17 @@ import SosScreen from './views/SosScreen';
 import Profile from './views/Profile';
 import EditProfile from './views/EditProfile';
 import ProfileIndex from './components/profile';
+import Login from './views/Login';
+import Auth from './views/Auth';
 
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <Auth />,
+    children: [{ index: true, element: <Login /> }]
+  },
+  {
+    path: '/user',
     element: <Home />,
     children: [
       { index: true, element: <SosScreen /> },

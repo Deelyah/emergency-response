@@ -13,16 +13,16 @@ const FootNav = () => {
     setActiveIcon(tab);
   };
   return (
-    <footer className='fixed bottom-0 left-0 right-0 p-4 bg-white'>
-      <ul className='w-full flex justify-center bg-[#F5F5FA] py-3 .5 rounded-2xl'>
+    <footer className='fixed bottom-0 left-0 right-0 p-4 bg-[#F5F5FA]'>
+      <ul className='w-full flex justify-center bg-[#F5F5FA] py-3 .5 rounded-2xl border'>
         <li
           className={`basis-1/3 flex justify-center font-medium text-sm ${
             activeIcon === 'Home' ? 'text-secondary' : ' text-[#313A51]'
           }`}
         >
           <Link
-          to='/'
-          className='flex flex-col items-center'
+            to='/user'
+            className='flex flex-col items-center'
             onClick={() => {
               changeTab('Home');
             }}
@@ -40,7 +40,7 @@ const FootNav = () => {
           }`}
         >
           <Link
-            to='/contacts'
+            to='/user/contacts'
             className='flex flex-col items-center'
             onClick={() => {
               changeTab('Contacts');
@@ -59,7 +59,7 @@ const FootNav = () => {
           }`}
         >
           <Link
-            to='/profile'
+            to='/user/profile'
             className='flex flex-col items-center'
             onClick={() => {
               changeTab('Profile');
@@ -72,7 +72,25 @@ const FootNav = () => {
             <p>Profile</p>
           </Link>
         </li>
-        <li></li>
+        <li
+          className={`basis-1/3 flex justify-center font-medium text-sm ${
+            activeIcon === 'Profile' ? 'text-secondary' : ' text-[#313A51]'
+          }`}
+        >
+          <Link
+            to='/signup'
+            className='flex flex-col items-center'
+            onClick={() => {
+              changeTab('signup');
+            }}
+          >
+            <div className='mb-1.5'>
+              {activeIcon !== 'Profile' && <InactiveProfileIcon />}
+              {activeIcon === 'Profile' && <ActiveProfileIcon />}
+            </div>
+            <p>Profile</p>
+          </Link>
+        </li>
       </ul>
     </footer>
   );

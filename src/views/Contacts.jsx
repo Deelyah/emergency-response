@@ -20,7 +20,7 @@ const Contacts = () => {
   return (
     <div>
       <div className='w-full mb-12'>
-        <div className='w-full h-16 bg-[#F5F5FA] flex items-center justify-center'>
+        <div className='w-full h-16 bg-[#F5F5FA] flex items-center justify-center border-b shadow-sm'>
           <p className='text-secondary font-semibold w-full text-xl px-5 flex'>
             Emergency Circle
             <button
@@ -41,7 +41,7 @@ const Contacts = () => {
           {allContacts.map((contact) => (
             <li
               key={contact.id}
-              className='bg-[#F5F5FA] my-2 p-3 text-secondary rounded-lg flex items-center'
+              className='bg-[#F5F5FA] border shadow-sm my-2 p-3 text-secondary rounded-lg flex items-center'
             >
               <div className='w-12 h-12 rounded-full flex justify-center items-center mr-2 border bg-primary text-xl text-white font-semibold'>
                 {contact.name.charAt(0).toUpperCase()}
