@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import '../App.css';
+// import '../App.css';
 const Profile = () => {
   const location = useLocation();
   const { pathname } = location;

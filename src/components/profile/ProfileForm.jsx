@@ -70,7 +70,7 @@ const ProfileForm = ({ formIsDiabled }) => {
     navigateTo('/profile');
   };
   return (
-    <form onSubmit={(e) => handleSubmit(e)} className='px-5 mt-12'>
+    <form onSubmit={(e) => handleSubmit(e)} className='px-5 mt-12 mb-8'>
       {userDetails.map((input, index) => (
         <div key={index} className='mb-5'>
           <label htmlFor='' className='text-secondary mb-1'>
@@ -81,7 +81,9 @@ const ProfileForm = ({ formIsDiabled }) => {
             value={input.defaultData}
             disabled={formIsDiabled}
             name={input.name}
-            className='focus:outline-none w-full py-3 px-3 border rounded-lg text-[#313A51]'
+            className={`focus:outline-none w-full py-3 px-3 border rounded-lg text-[#313A51] ${
+              !formIsDiabled && 'focus:border-primary'
+            }`}
             onChange={(e) => handleChange(e)}
           />
         </div>

@@ -1,21 +1,36 @@
-import addContact from '../assets/add-contact.png';
+import { useState } from 'react';
+import addContactIcon from '../assets/add-contact.png';
+import AddContact from '../components/AddContact';
+import DeleteIcon from '../assets/DeleteIcon';
 
 const Contacts = () => {
-  const allContacts = [
-    { name: 'Uncle Nnanna', phone: '09167631887', id: 1 },
-    { name: 'Aunty Mary', phone: '09167631887', id: 2 },
-    { name: 'Uncle Frank', phone: '09167631887', id: 3 },
+  const [allContacts, setAllContacts] = useState([
+    { name: 'Sopulu', phone: '09167631887', id: 1 },
+    { name: 'Aunty UC', phone: '09167631887', id: 2 },
+    { name: '2nd S', phone: '09167631887', id: 3 },
     { name: 'Mum', phone: '09198631887', id: 4 },
-    { name: 'Sopulu', phone: '09167631887', id: 5 }
-  ];
-  const success = (position) => {
-    console.log(position.coords);
+    { name: 'Uncle Nnanna', phone: '09167631887', id: 5 }
+  ]);
+  //   const success = (position) => {
+  //     console.log(position.coords);
+  //   };
+  //   const error = (msg) => {
+  //     console.log(msg);
+  //   };
+  //   const checkUp = () => {
+  //     navigator.geolocation.getCurrentPosition(success, error);
+  //   };
+  const [openContactModal, setContactModalIsVisible] = useState(false);
+  const toggleContactModal = (val) => {
+    setContactModalIsVisible(val);
   };
-  const error = (msg) => {
-    console.log(msg);
+  const saveContact = (formData) => {
+    setAllContacts((prevData) => {
+      return [...prevData, formData];
+    });
   };
-  const checkUp = () => {
-    navigator.geolocation.getCurrentPosition(success, error);
+  const deleteContact = (id) => {
+    setAllContacts(() => allContacts.filter((contact) => contact.id !== id));
   };
   return (
     <div>
@@ -24,10 +39,10 @@ const Contacts = () => {
           <p className='text-secondary font-semibold w-full text-xl px-5 flex'>
             Emergency Circle
             <button
-              onClick={checkUp}
+              onClick={() => toggleContactModal(true)}
               className='text-[#313A51] font-semibold ml-auto text-sm flex items-end border rounded-lg p-2'
             >
-              <img src={addContact} alt='img' className='mr-1 mb-1' />
+              <img src={addContactIcon} alt='img' className='mr-1 mb-1' />
               <p>Add</p>
             </button>
           </p>
@@ -52,9 +67,23 @@ const Contacts = () => {
                   {contact.phone}
                 </p>
               </div>
+              <div className='ml-auto'>
+                <button
+                  className='p-1.5'
+                  onClick={() => deleteContact(contact.id)}
+                >
+                  <DeleteIcon />
+                </button>
+              </div>
             </li>
           ))}
         </ul>
+      )}
+      {openContactModal && (
+        <AddContact
+          closeModal={() => toggleContactModal(false)}
+          saveContact={saveContact}
+        />
       )}
     </div>
   );

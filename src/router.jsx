@@ -7,12 +7,13 @@ import EditProfile from './views/EditProfile';
 import ProfileIndex from './components/profile';
 import Login from './views/Login';
 import Auth from './views/Auth';
+import Signup from './views/Signup';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Auth />,
-    children: [{ index: true, element: <Login /> }]
+    children: [{ index: true, element: <Login /> }, {path: 'signup', element: <Signup />}]
   },
   {
     path: '/user',
