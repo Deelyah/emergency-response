@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import BackIcon from '../assets/BackIcon';
-import MailIcon from '../assets/MailIcon';
 import PasswordIcon from '../assets/PasswordIcon';
 import { useState } from 'react';
 

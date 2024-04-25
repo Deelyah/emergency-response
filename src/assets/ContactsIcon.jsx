@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 const ContactsIcon = ({color}) => {
   return (
     <svg
@@ -18,4 +19,7 @@ const ContactsIcon = ({color}) => {
     </svg>
   );
 };
+ContactsIcon.propTypes = {
+  color: PropTypes.string.isRequired
+}
 export default ContactsIcon
