@@ -3,7 +3,16 @@ import BackIcon from '../assets/BackIcon';
 import PasswordIcon from '../assets/PasswordIcon';
 import { useState } from 'react';
 
+// import { useMutation } from '@tanstack/react-query';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { fireAuth } from '../firebase';
+
 const Signup = () => {
+  //   const mutation = useMutation({
+  //     mutationFn: (email, password) => {
+  //       return createUserWithEmailAndPassword(fireAuth, email, password);
+  //     }
+  //   });
   const navigateTo = useNavigate();
   const [formData, setFormData] = useState({});
   const [passwordIsText, setPasswordType] = useState(false);
@@ -59,15 +68,19 @@ const Signup = () => {
       return { ...prevData, [e.target.name]: e.target.value };
     });
   };
-  const handleSubmit = (e) => {
-    // try {
-
-    // } catch (error) {
-
-    // }
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    navigateTo('/user');
+    try {
+      const res = await createUserWithEmailAndPassword(
+        fireAuth,
+        formData.email,
+        formData.password
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+    // navigateTo('/user');
   };
   const goToLogin = () => {
     navigateTo('/');

@@ -2,8 +2,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import BackIcon from '../assets/BackIcon';
 import PasswordIcon from '../assets/PasswordIcon';
 import { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { fireAuth } from '../firebase';
 
 const Login = () => {
+    
   const navigateTo = useNavigate();
   const [passwordIsText, setPasswordType] = useState(false);
   const [formData, setFormData] = useState({});
@@ -15,15 +18,21 @@ const Login = () => {
   const togglePassword = () => {
     setPasswordType(!passwordIsText);
   };
-  const handleSubmit = (e) => {
-    // try {
-
-    // } catch (error) {
-
-    // }
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    navigateTo('/user');
+    try {
+        const credential = await signInWithEmailAndPassword(
+          fireAuth,
+          formData.email,
+          formData.password
+        );
+        console.log(credential)
+        navigateTo('/user');
+      } catch (error) {
+        console.log(error);
+      }
+    // navigateTo('/user');
   };
   return (
     <div className=''>
