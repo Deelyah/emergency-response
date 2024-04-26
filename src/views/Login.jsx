@@ -6,7 +6,6 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { fireAuth } from '../firebase';
 
 const Login = () => {
-    
   const navigateTo = useNavigate();
   const [passwordIsText, setPasswordType] = useState(false);
   const [formData, setFormData] = useState({});
@@ -20,19 +19,16 @@ const Login = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     try {
-        const credential = await signInWithEmailAndPassword(
-          fireAuth,
-          formData.email,
-          formData.password
-        );
-        console.log(credential)
-        navigateTo('/user');
-      } catch (error) {
-        console.log(error);
-      }
-    // navigateTo('/user');
+      await signInWithEmailAndPassword(
+        fireAuth,
+        formData.email,
+        formData.password
+      );
+      navigateTo('/user');
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className=''>
