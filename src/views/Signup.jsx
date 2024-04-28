@@ -6,6 +6,7 @@ import { useState } from 'react';
 // import { useMutation } from '@tanstack/react-query';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { fireAuth } from '../firebase';
+import { createProfile } from '../api/Services';
 
 const Signup = () => {
   //   const mutation = useMutation({
@@ -14,6 +15,7 @@ const Signup = () => {
   //     }
   //   });
   const navigateTo = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({});
   const [passwordIsText, setPasswordType] = useState(false);
   const userDetails = [
@@ -70,17 +72,23 @@ const Signup = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const res = await createUserWithEmailAndPassword(
         fireAuth,
         formData.email,
         formData.password
       );
-      console.log(res);
+      await createProfile(res.user.uid, formData);
+      console.log(res, formData);
+      setIsLoading(false);
+
+      navigateTo('/');
     } catch (error) {
-      console.log(error);
+      setIsLoading(false);
+        alert(error.message)
+      console.log(error.message);
     }
-    // navigateTo('/user');
   };
   const goToLogin = () => {
     navigateTo('/');
@@ -143,7 +151,7 @@ const Signup = () => {
             </div>
           </div>
           <button className='bg-primary text-white w-full mt-10 py-3 rounded-lg'>
-            Signup
+            {isLoading ? 'Loading...' : 'Signup'}
           </button>
           <p className='text-center mt-5 text-xs font-medium text-[#313A51]'>
             Already a member?{' '}

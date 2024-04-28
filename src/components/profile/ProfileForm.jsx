@@ -3,18 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 const ProfileForm = ({ formIsDiabled }) => {
   useEffect(() => {
-    setFormData({
-      userName: 'Cordelia Ukpai',
-      email: 'cordelia@gmail.com',
-      location: 'UNN Campus',
-      bloodGroup: 'O+',
-      genotype: 'AA',
-      allergies: 'None'
-    });
+    const storedProfile = JSON.parse(localStorage.getItem('profile'));
+    setFormData(storedProfile.data);
   }, []);
   const navigateTo = useNavigate();
   const [formData, setFormData] = useState({
-    userName: '',
+    fullName: '',
     email: '',
     location: '',
     bloodGroup: '',
@@ -25,8 +19,8 @@ const ProfileForm = ({ formIsDiabled }) => {
     {
       label: 'Username',
       type: 'text',
-      defaultData: formData.userName,
-      name: 'userName'
+      defaultData: formData.fullName,
+      name: 'fullName'
     },
     {
       label: 'Email',

@@ -7,9 +7,10 @@ import { useState } from 'react';
 import ConfirmLogout from '../components/ConfirmLogout';
 
 const FootNav = () => {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation(); 
   const [showLogotModal, setShowLogoutModal] = useState(false);
   const toggleLogoutPrompt = (val) => {
+    localStorage.clear();
     setShowLogoutModal(val);
   };
   return (

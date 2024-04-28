@@ -1,9 +1,16 @@
+import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 // import '../App.css';
 const Profile = () => {
+  useEffect(() => {
+    const { data } = JSON.parse(localStorage.getItem('profile'));
+    console.log(data);
+    setProfile(data);
+  }, []);
   const location = useLocation();
   const { pathname } = location;
   const isEditing = pathname.includes('edit');
+  const [profile, setProfile] = useState({});
   return (
     <div className='h-[88vh] overflow-auto'>
       <div className='w-full mb-12'>

@@ -4,10 +4,12 @@ import PasswordIcon from '../assets/PasswordIcon';
 import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { fireAuth } from '../firebase';
+import { getProfile } from '../api/Services';
 
 const Login = () => {
   const navigateTo = useNavigate();
   const [passwordIsText, setPasswordType] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({});
   const handleChange = (e) => {
     setFormData((prevData) => {
@@ -19,15 +21,21 @@ const Login = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      await signInWithEmailAndPassword(
+      const userCredentials = await signInWithEmailAndPassword(
         fireAuth,
         formData.email,
         formData.password
       );
+      console.log(userCredentials.user, 'credentials');
+      await getProfile(userCredentials.user.uid);
+      setIsLoading(false);
       navigateTo('/user');
     } catch (error) {
-      console.log(error);
+      setIsLoading(false);
+      alert(error.code);
+      console.log(error.code);
     }
   };
   return (
@@ -107,7 +115,7 @@ const Login = () => {
             </Link>
           </div>
           <button className='bg-primary text-white w-full mt-10 py-3 rounded-lg'>
-            Login
+            {isLoading ? 'Authenticating...' : 'Login'}
           </button>
           <p className='text-center mt-5 text-xs font-medium text-[#313A51]'>
             Not a member?{' '}
